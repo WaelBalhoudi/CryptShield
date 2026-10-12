@@ -19,7 +19,7 @@ The project begins with classical cryptography, using the Affine Cipher to explo
 - [Attack Scenarios](#-attack-scenarios)
 - [System Architecture](#-system-architecture)
 - [Technology Stack](#-technology-stack)
-- [Project Roadmap](#-project-roadmap)
+- [Development Roadmap](#-development-roadmap)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Testing and Evaluation](#-testing-and-evaluation)
@@ -129,6 +129,7 @@ Features are grouped by development stage.
 | Known-plaintext key recovery | Planned |
 | Synthetic victim dataset | Planned |
 | Controlled ransomware simulation | Planned |
+| Simulation GUI | Planned |
 | Educational warning interface | Planned |
 | File-activity detection engine | Planned |
 | Automated simulation termination | Planned |
@@ -136,9 +137,9 @@ Features are grouped by development stage.
 | SHA-256 integrity verification | Planned |
 | Sysmon integration | Planned |
 | Wazuh SIEM integration | Planned |
-| Experiment metrics and reports | Planned |
-| Web dashboard | Future extension |
-| Modern cryptography module | Future extension |
+| Experiment framework, metrics and reports | Planned |
+| Dashboard | Planned |
+| Modern cryptography comparison (AES) | Planned |
 
 Statuses will be updated as features are implemented and tested.
 
@@ -192,35 +193,35 @@ Expected outcome: a measured comparison of file impact, detection performance, r
 The planned architecture consists of five logical components.
 
 ```text
-                  CryptShield Platform
-                           |
-          +----------------+----------------+
-          |                |                |
-          v                v                v
-   Cryptography       Simulation        Detection
-      Engine            Engine            Engine
-          |                |                |
-          v                v                v
-   Affine Cipher      Synthetic Data    File Monitoring
-   Cryptanalysis      Controlled Runs   Detection Rules
-          |                |                |
-          +----------------+----------------+
-                           |
-                           v
-                    Incident Response
-                           |
-                  +--------+--------+
-                  |                 |
-                  v                 v
-                Stop             Recover
-                  |                 |
-                  +--------+--------+
-                           |
-                           v
-                  SHA-256 Verification
-                           |
-                           v
-                   Experiment Reports
+                 CryptShield Platform
+                          |
+         +----------------+----------------+
+         |                |                |
+         v                v                v
+  Cryptography       Simulation        Detection
+     Engine            Engine            Engine
+         |                |                |
+         v                v                v
+  Affine Cipher      Synthetic Data    File Monitoring
+  Cryptanalysis      Controlled Runs   Detection Rules
+         |                |                |
+         +----------------+----------------+
+                          |
+                          v
+                   Incident Response
+                          |
+                 +--------+--------+
+                 |                 |
+                 v                 v
+               Stop             Recover
+                 |                 |
+                 +--------+--------+
+                          |
+                          v
+                 SHA-256 Verification
+                          |
+                          v
+                  Experiment Reports
 ```
 
 ### Laboratory topology
@@ -228,26 +229,26 @@ The planned architecture consists of five logical components.
 The proposed laboratory will use an isolated virtual network.
 
 ```text
-                 ISOLATED LAB NETWORK
-                          |
-             +------------+------------+
-             |                         |
-             v                         v
-        Kali Linux VM             Windows VM
-        Lab controller            Victim system
-             |                         |
-             |                  Synthetic test data
-             |                         |
-             |                    Sysmon Agent
-             |                         |
-             +-------------------------+
-                          |
-                          v
-                    Wazuh Manager
-                    SIEM / Alerts
-                          |
-                          v
-                 Detection Evaluation
+                ISOLATED LAB NETWORK
+                         |
+            +------------+------------+
+            |                         |
+            v                         v
+       Kali Linux VM             Windows VM
+       Lab controller            Victim system
+            |                         |
+            |                  Synthetic test data
+            |                         |
+            |                    Sysmon Agent
+            |                         |
+            +-------------------------+
+                         |
+                         v
+                   Wazuh Manager
+                   SIEM / Alerts
+                         |
+                         v
+                Detection Evaluation
 
         Separate clean backup and recovery storage
 ```
@@ -270,86 +271,86 @@ The initial prototype can run locally without Kali or Wazuh. Network integration
 | Sysmon | Detailed Windows process and system-event monitoring |
 | Wazuh | Centralized security monitoring and alerting |
 | Git and GitHub | Version control and documentation |
-| Angular (optional) | Future dashboard |
-| Spring Boot (optional) | Future REST API |
+| Angular (optional) | Dashboard |
+| Spring Boot (optional) | REST API |
 
 Dependencies will be added as the corresponding modules are implemented.
 
 ---
 
-## 🗺️ Project Roadmap
+## 🗺️ Development Roadmap
 
-### Phase 1 — Affine Cipher fundamentals
+The roadmap contains 15 milestones in 5 phases. Each milestone has a concrete deliverable. Tick the checkbox when a milestone is completed and tested.
 
-- [ ] Study modular arithmetic.
-- [ ] Implement encryption and decryption.
-- [ ] Validate the multiplication key.
-- [ ] Handle text, punctuation, and case consistently.
-- [ ] Write unit tests.
+### Phase 1 — Cryptography Foundations
 
-### Phase 2 — Cryptanalysis
+- [ ] **01 · Affine mathematics**  
+  Understand modular arithmetic, GCD, modular inverses, and encryption/decryption equations.  
+  **Deliverable:** mathematical notes and worked examples.
 
-- [ ] Enumerate the 312 valid Affine keys.
-- [ ] Implement brute-force key recovery.
-- [ ] Demonstrate known-plaintext attacks.
-- [ ] Record attempts and execution time.
-- [ ] Document the cipher's security limitations.
+- [ ] **02 · Affine Python implementation**  
+  Implement encryption, decryption, input validation, and unit tests.  
+  **Deliverable:** tested Python module.
 
-### Phase 3 — Laboratory preparation
+- [ ] **03 · Affine cryptanalysis**  
+  Implement brute force over valid keys and known-plaintext key recovery.  
+  **Deliverable:** cryptanalysis module with test cases and measured results.
 
-- [ ] Define the lab directory and configuration.
-- [ ] Generate synthetic test files.
-- [ ] Record baseline file hashes.
-- [ ] Create and test clean backups.
-- [ ] Test rejection of unauthorized file paths.
+### Phase 2 — Controlled Simulation
 
-### Phase 4 — Controlled simulation
+- [ ] **04 · Synthetic victim files**  
+  Generate harmless documents and test files in a dedicated lab directory.  
+  **Deliverable:** reproducible dataset and file manifest.
 
-- [ ] Implement a controlled file-transformation engine.
-- [ ] Record affected files and simulation events.
-- [ ] Implement explicit stop controls.
-- [ ] Create an educational warning interface.
-- [ ] Verify repeatability and safe failure behavior.
+- [ ] **05 · Controlled encryption simulator**  
+  Simulate suspicious file transformations only inside the explicitly configured lab directory.  
+  **Deliverable:** reproducible simulation with limits and a safe stop mechanism.
 
-### Phase 5 — Detection and response
+- [ ] **06 · Simulation GUI**  
+  Build controls for preparing files, running a simulation, viewing status, and resetting the lab.  
+  **Deliverable:** usable graphical interface with safety checks.
 
-- [ ] Implement local file-activity monitoring.
-- [ ] Establish benign-activity baselines.
-- [ ] Create suspicious-activity detection rules.
-- [ ] Generate alerts with supporting evidence.
-- [ ] Implement controlled termination.
-- [ ] Measure detection and response latency.
+### Phase 3 — Detection and Response
 
-### Phase 6 — Recovery
+- [ ] **07 · File-activity detector**  
+  Monitor rapid file modifications, renames, and suspicious activity patterns.  
+  **Deliverable:** configurable detection rules and event logs.
 
-- [ ] Restore files from a clean backup.
-- [ ] Verify SHA-256 hashes.
-- [ ] Track recovery failures.
-- [ ] Generate a recovery report.
+- [ ] **08 · Automatic stopping**  
+  Stop the controlled simulator when a detection threshold is reached.  
+  **Deliverable:** tested response controller with a manual emergency stop.
 
-### Phase 7 — SIEM integration
+- [ ] **09 · Backup and recovery**  
+  Restore affected test files from a separate, protected backup.  
+  **Deliverable:** recovery procedure with success and failure handling.
 
-- [ ] Configure Sysmon.
-- [ ] Integrate Wazuh Agent and Manager.
-- [ ] Collect and correlate relevant events.
-- [ ] Develop and test detection rules.
-- [ ] Compare local and SIEM-assisted detection.
+- [ ] **10 · SHA-256 integrity verification**  
+  Compare hashes of recovered files against the original manifest.  
+  **Deliverable:** integrity report showing matching and mismatching files.
 
-### Phase 8 — Research and reporting
+### Phase 4 — Security Monitoring
 
-- [ ] Define controlled experimental conditions.
-- [ ] Repeat each scenario.
-- [ ] Calculate detection and recovery metrics.
-- [ ] Compare results and limitations.
-- [ ] Prepare the final report and demonstration.
+- [ ] **11 · Sysmon / Wazuh integration**  
+  Collect host telemetry and correlate relevant events with CryptShield alerts.  
+  **Deliverable:** working event collection and documented detection rules.
 
-### Phase 9 — Future enhancements
+- [ ] **12 · Experiment framework**  
+  Run repeatable scenarios with monitoring disabled and enabled.  
+  **Deliverable:** structured experiment logs and metrics for detection delay, files affected, recovery time, and false positives.
 
-- [ ] Add a dashboard.
-- [ ] Add experiment history and visual analytics.
-- [ ] Introduce modern cryptography using established libraries.
-- [ ] Expand the defensive scenarios.
-- [ ] Evaluate additional detection strategies.
+### Phase 5 — Analysis and Research
+
+- [ ] **13 · Dashboard**  
+  Visualize alerts, file impact, response time, recovery results, and experiment comparisons.  
+  **Deliverable:** dashboard backed by recorded experiment data.
+
+- [ ] **14 · Stronger cryptography**  
+  Compare Affine Cipher with modern cryptography, such as AES, to demonstrate differences in confidentiality and why encryption strength alone does not detect ransomware behavior.  
+  **Deliverable:** documented comparison using safe, reversible test data.
+
+- [ ] **15 · Research evaluation**  
+  Analyze results, limitations, reproducibility, and the effectiveness of detection and recovery.  
+  **Deliverable:** research report, charts, conclusions, and demonstration.
 
 ---
 
@@ -525,9 +526,7 @@ These are objectives, not claimed experimental findings.
 
 Potential extensions include:
 
-- A web dashboard for experiment monitoring.
 - Additional classical cryptanalysis exercises.
-- Modern cryptography demonstrations using established libraries.
 - More advanced behavioral detection rules.
 - Improved event correlation with Wazuh.
 - Automated generation of experiment reports.
